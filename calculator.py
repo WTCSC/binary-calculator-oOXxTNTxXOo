@@ -5,8 +5,8 @@ ops = {
     "*": operator.mul,
     "/": operator.truediv
 }
-bin1 = "01101010"
-bin2 = "00000010"
+bin1 = "01111111"
+bin2 = "00000011"
 operator = "/" 
 
 def checker(x): #verifies that the string is a binary code 
@@ -56,14 +56,23 @@ def binary_calculator(bin1, bin2, operator): #function to calculate binary numbe
     elif opchecker(operator) == False:
         return print("Error")
     op_func = ops[operator] #checks for operator value
+
+    if operator == "/": #checks for dived by zero 
+        if convert(bin2) == 0:
+            return print("NaN")
+
     binn = op_func(convert(bin1),convert(bin2)) #does binary number math
+    print(binn)
     if binn >= 255: #verifies that number is with 8-bit binary range //could work better if checked for within range
         return print("Overflow")
-    elif binn <= 0: #verifies that number greater than 0
+    elif binn <= -1: #verifies that number greater than 0
         return print("NaN")
-    elif is_integer_num(binn) == False: #verifies that number is not an integer/decimal
-        return print("NaN")
+    elif is_integer_num(binn) == False: #makes sure number is not a decimal
+       binn = round(binn)
+       return binn
+    print(binn)
     binn = reconvert(binn)
     return binn
 
 print(binary_calculator(bin1, bin2, operator))
+#dosent handle all zeros 000000000
