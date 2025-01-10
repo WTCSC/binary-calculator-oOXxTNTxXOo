@@ -1,5 +1,16 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=17648172)
 # Binary Calculator
+The Binary Calculator is a calculator capable of performing binary calculations with +,-,*,/. additionally this calculator is capable of error handling any input that is not a binary number or a symbols that are not in the previously mentioned list, handling division by 0, and numbers that contain decimals. This calculator will output "Overflow" for numbers greater than 255 or any number less than 0. 
+
+To use this claculator you do not need to input a 8-bit binary number however this calulator will output only 8-bit binary numbers even if the number is 1 Ex: 10 - 0001 = 2 - 1 = 1 = "00000001" 
+
+Ex use: 
+input: "0010101" "+" "0101"
+output: "011010"
+
+invalid input: 
+input: "abces" "+" "11010"
+output: "Error"
 
 <!--
 
