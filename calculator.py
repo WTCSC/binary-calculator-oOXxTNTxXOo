@@ -1,28 +1,28 @@
 import operator
 import math
+
+#dictionaries 
 ops = {
     "+": operator.add,
     "-": operator.sub,
     "*": operator.mul,
     "/": operator.truediv
 }
-bin1 = "00000011"
-bin2 = "00000111"
-operator = "/" 
 
+#functions
 def checker(x): #verifies that the string is a binary code 
-        if len(x) != 8: #could work better with fromat becasue can check for 101 binary numbers 
-            return False
         for i in x:
-            if str(i) == "1":
-                i=i
-            elif str(i) == "0":
+            if str(i) == "1" or str(i) == "0":
                 i=i
             else:
                 return False
 
-def opchecker(x):
-    return 
+def opchecker(x): #checks for operator value to verify that the operator is either a +, -, *, /
+    try: 
+        ops[x]
+        return ops[x]
+    except:
+        return False
 
 def convert(Io): #converts binary numbers into readable base 10 numbers
     x = 0
@@ -42,30 +42,14 @@ def reconvert(Io): #converts base 10 numbers into binary numbers
         x = x-1
     return "".join(tot)
 
-
 def binary_calculator(bin1, bin2, operator): #function to calculate binary numbers whether added, subtracted, divided, or multiplied.
-    if checker(bin1) == False: #checks if binary number is a 8-bit binary number or not
+    if checker(bin1) == False or checker(bin2) == False or opchecker(operator) == False: #checks if binary number is a 8-bit binary number or not
         return "Error"
-    elif checker(bin2) == False:
-        return "Error"
-    elif opchecker(operator) == False:
-        return "Error"
-    op_func = ops[operator] #checks for operator value
-
-    if operator == "/": #checks for dived by zero 
-        if convert(bin2) == 0:
-            return "NaN"
-
-    binn = math.floor(op_func(convert(bin1),convert(bin2))) #does binary number math
-    print(convert(bin1),convert(bin2))
-    
-    if binn >= 256: #verifies that number is with 8-bit binary range //could work better if checked for within range
+    try:
+        binn = math.floor(opchecker(operator)(convert(bin1),convert(bin2))) #does binary number math || also performs flooring on the final number
+    except:
+        return "NaN"
+    if binn >= 256 or binn < 0: #chekcs whether calculated number is in range of 255-0
         return "Overflow"
-    elif binn < 0: #verifies that number greater than 0
-        return "Overflow"
-
     binn = reconvert(binn)
     return binn
-
-print(binary_calculator(bin1, bin2, operator))
-#dosent handle all zeros 000000000
