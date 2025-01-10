@@ -1,12 +1,13 @@
 import operator
+import math
 ops = {
     "+": operator.add,
     "-": operator.sub,
     "*": operator.mul,
     "/": operator.truediv
 }
-bin1 = "01111111"
-bin2 = "00000011"
+bin1 = "00000011"
+bin2 = "00000111"
 operator = "/" 
 
 def checker(x): #verifies that the string is a binary code 
@@ -41,36 +42,28 @@ def reconvert(Io): #converts base 10 numbers into binary numbers
         x = x-1
     return "".join(tot)
 
-def is_integer_num(n):
-    if isinstance(n, int):
-        return True
-    if isinstance(n, float):
-        return n.is_integer()
-    return False
 
 def binary_calculator(bin1, bin2, operator): #function to calculate binary numbers whether added, subtracted, divided, or multiplied.
     if checker(bin1) == False: #checks if binary number is a 8-bit binary number or not
-        return print("Error")
+        return "Error"
     elif checker(bin2) == False:
-        return print("Error")
+        return "Error"
     elif opchecker(operator) == False:
-        return print("Error")
+        return "Error"
     op_func = ops[operator] #checks for operator value
 
     if operator == "/": #checks for dived by zero 
         if convert(bin2) == 0:
-            return print("NaN")
+            return "NaN"
 
-    binn = op_func(convert(bin1),convert(bin2)) #does binary number math
-    print(binn)
-    if binn >= 255: #verifies that number is with 8-bit binary range //could work better if checked for within range
-        return print("Overflow")
-    elif binn <= -1: #verifies that number greater than 0
-        return print("NaN")
-    elif is_integer_num(binn) == False: #makes sure number is not a decimal
-       binn = round(binn)
-       return binn
-    print(binn)
+    binn = math.floor(op_func(convert(bin1),convert(bin2))) #does binary number math
+    print(convert(bin1),convert(bin2))
+    
+    if binn >= 256: #verifies that number is with 8-bit binary range //could work better if checked for within range
+        return "Overflow"
+    elif binn < 0: #verifies that number greater than 0
+        return "Overflow"
+
     binn = reconvert(binn)
     return binn
 
